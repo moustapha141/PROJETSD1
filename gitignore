@@ -1,0 +1,19 @@
+# Exécutable
+projetsd1
+
+# Fichiers de données générés à l'exécution
+*.dat
+
+# Objets de compilation
+*.o
+*.out
+
+# Fichiers temporaires de l'éditeur
+*~
+.vscode/
+
+# LaTeX
+docs/rapport/*.aux
+docs/rapport/*.log
+docs/rapport/*.toc
+docs/rapport/*.out
