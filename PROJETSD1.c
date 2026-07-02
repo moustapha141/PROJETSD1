@@ -145,7 +145,7 @@ void sauvegarderCatalogue(Produit* liste) {
 Produit* chargerCatalogue(Produit* liste) {
     FILE* f = fopen("produits.dat", "rb");
     if (!f) {
-        printf("Aucun fichier 'produits.dat' trouve. Catalogue vide.\n");
+        /* printf("Aucun fichier 'produits.dat' trouve. Catalogue vide.\n")*/;
         return liste;
     }
     int total = 0;
@@ -165,6 +165,7 @@ void genererDateCourante(char* buffer, size_t size) {
         return;
     }
     strftime(buffer, size, "%Y-%m-%d", tm_info);
+
 }
 
 //  FONCTIONS DES CLIENTS ET PANIERS
@@ -222,7 +223,7 @@ void sauvegarderClients(Client* liste_clients) {
 Client* chargerClients(Client* liste_clients) {
     FILE* f = fopen("clients.dat", "rb");
     if (!f) {
-        printf("Aucun fichier 'clients.dat' trouve. Liste clients vide.\n");
+        /*printf("Aucun fichier 'clients.dat' trouve. Liste clients vide.\n")*/;
         return liste_clients;
     }
     int total = 0;
@@ -359,7 +360,7 @@ void sauvegarderCommandes(Commande* liste_commandes) {
 void chargerCommandes(Commande* liste_commandes, Client* liste_clients, Produit* catalogue) {
     FILE* f = fopen("commandes.dat", "rb");
     if (!f) {
-        printf("Aucun fichier 'commandes.dat' trouve. Liste commandes vide.\n");
+       /* printf("Aucun fichier 'commandes.dat' trouve. Liste commandes vide.\n")*/;
         return;
     }
     int total = 0;
@@ -661,7 +662,10 @@ void sauvegarderTableauDynamique(Produit** tab) {
 
 Produit** chargerTableauDynamique(Produit** tab) {
     FILE* f = fopen("dynamique.dat", "rb");
-    if (!f) { printf("Aucun fichier 'dynamique.dat' trouve. Tableau dynamique vide.\n"); return tab; }
+    if (!f) 
+    { /*printf("Aucun fichier 'dynamique.dat' trouve. Tableau dynamique vide.\n"); */
+        return tab; 
+    };
     int total = 0;
     fread(&total, sizeof(int), 1, f);
     for (int i = 0; i < total; i++) {
@@ -1004,20 +1008,20 @@ void triInsertionDynamique(Produit** tab) {
 // Critere : prix croissant
 void triInsertionListe(Noeud** tete) {
     if (!tete || !(*tete) || !(*tete)->suiv) return;
-    Noeud* trié = (*tete);
+    Noeud* trie = (*tete);
     Noeud* courant = (*tete)->suiv;
-    trié->suiv = NULL;
-    trié->prec = NULL;
+    trie->suiv = NULL;
+    trie->prec = NULL;
 
     while (courant != NULL) {
         Noeud* suivant = courant->suiv;
-        if (courant->data.prix <= trié->data.prix) {
-            courant->suiv = trié;
+        if (courant->data.prix <= trie->data.prix) {
+            courant->suiv = trie;
             courant->prec = NULL;
-            trié->prec = courant;
-            trié = courant;
+            trie->prec = courant;
+            trie = courant;
         } else {
-            Noeud* pos = trié;
+            Noeud* pos = trie;
             while (pos->suiv != NULL && pos->suiv->data.prix < courant->data.prix)
                 pos = pos->suiv;
             courant->suiv = pos->suiv;
@@ -1027,11 +1031,10 @@ void triInsertionListe(Noeud** tete) {
         }
         courant = suivant;
     }
-    *tete = trié;
+    *tete = trie;
     printf("Liste chainee triee par prix croissant.\n");
 }
 
-// MISE A JOUR - TABLEAU STATIQUE
 void mettreAJourProduitStatique(Produit* liste) {
     int id; printf("ID du produit a modifier : "); 
 	scanf("%d", &id);
@@ -1057,7 +1060,6 @@ void mettreAJourProduitStatique(Produit* liste) {
     printf("Produit ID %d mis a jour (tableau statique).\n", id);
 }
 
-// MISE A JOUR - TABLEAU DYNAMIQUE
 void mettreAJourProduitDyn(Produit** tab) {
     int id; printf("ID du produit a modifier : "); 
 	scanf("%d", &id);
@@ -1084,7 +1086,6 @@ void mettreAJourProduitDyn(Produit** tab) {
     printf("Produit ID %d mis a jour (tableau dynamique).\n", id);
 }
 
-// MISE A JOUR - LISTE CHAINEE
 void mettreAJourProduitListe(Noeud* tete) {
     int id; 
 	printf("ID du produit a modifier : "); 
@@ -1113,6 +1114,49 @@ void mettreAJourProduitListe(Noeud* tete) {
 
 int main() {
 
+
+					    printf("\n");
+					    printf("%58s\n", "Universite Iba Der Thiam de Thies");
+					    printf("\n");
+					    printf("%53s\n", "UFR Sciences et Technologies");
+					    printf("%64s\n", "Departement de Mathematiques et Informatique");
+					    printf("\n");
+					    printf("%53s\n", "__________________________________");
+					    printf("\n\n\n");
+					
+					    printf("%53s\n","RAPPORT DE PROJET");
+					    printf("%57s\n",     "Algorithmique et Structures de Donnees");
+					    printf("\n\n");
+					
+					   
+					    printf("         +-------------------------------------------------------------+\n");
+					    printf("         |                                                             |\n");
+					    printf("         |     Conception, Implementation et Evaluation Comparative    |\n");
+					    printf("         |                                                             |\n");
+					    printf("         |             de Structures de Donnees pour un                |\n");
+					    printf("         |                                                             |\n");
+					    printf("         |           Systeme de Gestion de Commerce en Ligne           |\n");
+					    printf("         |                                                             |\n");
+					    printf("         | Tableau Statique . Tableau Dynamique de Pointeurs . Liste DC |\n");
+					    printf("         +-------------------------------------------------------------+\n");
+					    printf("\n\n\n");
+					
+					   
+					    printf("         Filiere :             Licence 2 Mathematiques-Informatique (LMI 2)\n");
+					    printf("         Annee universitaire : 2025-2026\n");
+					    printf("         Enseignant resp. :    Dr Abdoulaye DIALLO\n");
+					    printf("         Modalite :            Binome\n");
+					    printf("         Langage :             C (compile avec gcc -Wall -Wextra)\n");
+					    printf("\n\n\n");
+					
+					   
+					    printf("%43s\n", "Juin 2026");
+					    printf("\n");
+					    printf("%53s\n", "__________________________________");
+					    printf("\n");
+
+  
+
     memset(table_produits, 0, sizeof(table_produits));
     memset(table_clients, 0, sizeof(table_clients));
     memset(table_commandes, 0, sizeof(table_commandes));
@@ -1124,7 +1168,6 @@ int main() {
     Produit** catalogue_dyn = initialiserTableauDynamique();
     Noeud* ma_liste = NULL;
 
-    // Charger la liste chaînée depuis le fichier
     ma_liste = chargerCatalogueListe("liste.dat");
     if (!ma_liste) 
 	printf("Aucune liste chainee trouvee. Liste vide.\n");
@@ -1136,6 +1179,8 @@ int main() {
     chargerClients(liste_clients);
     chargerCommandes(liste_commandes, liste_clients, catalogue);
     catalogue_dyn = chargerTableauDynamique(catalogue_dyn);
+    printf("\n\n\n");
+    
 
     do {
         printf("  BIENVENUE SUR MON ESPACE-COMMERCE EN LIGNE:\n");
@@ -1213,7 +1258,8 @@ int main() {
                 }
                 break;
             case 4:
-                int sous_choix_commande;
+               {
+			    int sous_choix_commande;
                 printf("1. Visualiser mon panier\n");
                 printf("2. Passer une commande\n");
                 printf("Votre choix : ");
@@ -1235,7 +1281,7 @@ int main() {
                 else {
                     printf("Option invalide.\n");
                 }
-                break;         
+                break;}         
             case 5:
                 afficherToutesLesCommandes(liste_commandes);
                 break;
@@ -1253,13 +1299,14 @@ int main() {
                 }
               break;
               case 7: 
-                int taille_actuelle_stat = 0;
+               {
+				int taille_actuelle_stat = 0;
                 while(taille_actuelle_stat < MAX_STATIQUE && table_produits[taille_actuelle_stat].idProduit != 0) {
                 taille_actuelle_stat++;
                 }
                 triInsertionStatique(table_produits, taille_actuelle_stat);
                 afficherCatalogue(table_produits);
-                break;
+                break;}
             case 8:
                 triInsertionDynamique(catalogue_dyn); 
                 afficherCatalogueDyn(catalogue_dyn);
@@ -1336,8 +1383,8 @@ int main() {
                     default:
                         printf("Option invalide.\n");
                 }
-                break;
-            }
+                break;}
+            
             case 10: {
                 int sous_choix_maj;
                 printf("=== MISE A JOUR D'UN PRODUIT ===\n");
@@ -1350,8 +1397,8 @@ int main() {
                 else if (sous_choix_maj == 2) mettreAJourProduitDyn(catalogue_dyn);
                 else if (sous_choix_maj == 3) mettreAJourProduitListe(ma_liste);
                 else printf("Option invalide.\n");
-                break;
-            }
+                break;}
+            
             case 0:
                 printf("Merci de votre visite ! Liberation de la memoire et fermeture.\n");
                 sauvegarderCatalogue(catalogue);
