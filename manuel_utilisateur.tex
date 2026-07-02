@@ -1,0 +1,213 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{enumitem}
+\geometry{margin=2.5cm}
+
+% Le pack de langue 'french' pour babel n'est pas installe dans cet
+% environnement de test minimal ; sur Overleaf / TeXLive complet,
+% decommenter la ligne suivante pour les regles typographiques francaises :
+% \usepackage[french]{babel}
+
+\lstset{basicstyle=\ttfamily\small, breaklines=true, frame=single}
+
+\title{Manuel utilisateur \\ \large Catalogue d'un commerce en ligne}
+\author{[Nom 1] \and [Nom 2] \\ Licence 2 Mathématiques-Informatique \\ UIDT Thiès}
+\date{Année universitaire 2025--2026}
+
+\begin{document}
+\maketitle
+
+\section{Présentation}
+
+Ce programme en C implémente un catalogue de commerce en ligne (produits,
+clients, commandes) sur trois structures de données distinctes (tableau
+statique, tableau dynamique de pointeurs, liste doublement chaînée), avec
+persistance automatique entre deux exécutions.
+
+\section{Compilation}
+
+\begin{lstlisting}
+make            # compile le programme (cible "all")
+make benchmark  # compile en -O2 et lance directement les mesures
+make clean      # supprime l'executable et les fichiers de donnees .dat
+\end{lstlisting}
+
+Compilation manuelle équivalente :
+\begin{lstlisting}
+gcc -Wall -Wextra -std=c11 src/PROJETSD1.c -o projetsd1 -lm
+\end{lstlisting}
+
+Le fichier \texttt{produits.h} doit se trouver dans le même dossier que
+\texttt{PROJETSD1.c}.
+
+\section{Lancement}
+
+\begin{lstlisting}
+./projetsd1
+\end{lstlisting}
+
+Au premier lancement, aucun fichier de données n'existe encore : le
+programme l'indique (\textit{"Aucun fichier 'produits.dat' trouvé. Catalogue
+vide."}) et démarre avec un catalogue vide. Aux lancements suivants, toutes
+les données précédemment enregistrées sont rechargées automatiquement.
+
+\section{Menu principal}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cl}
+\toprule
+Option & Fonction \\
+\midrule
+1  & Gestion du catalogue (ajouter / afficher un produit) \\
+2  & Créer un compte client / afficher la liste des clients \\
+3  & Ajouter un produit au panier / voir le catalogue \\
+4  & Voir son panier / passer une commande \\
+5  & Voir toutes les commandes passées \\
+6  & Statistiques (min, max, moyenne, médiane, écart-type des prix) \\
+7  & Trier et afficher le tableau statique (par prix croissant) \\
+8  & Trier et afficher le tableau dynamique (par stock décroissant) \\
+9  & Gestion de la liste doublement chaînée (sous-menu détaillé, §6) \\
+10 & Mise à jour d'un produit existant \\
+0  & Quitter (sauvegarde automatique avant fermeture) \\
+\bottomrule
+\end{tabular}
+\caption{Options du menu principal}
+\end{table}
+
+\section{Gestion du catalogue (option 1)}
+
+\begin{enumerate}
+  \item \textbf{Ajouter un produit} : demande successivement l'identifiant
+        (entier unique, \textbf{ne jamais utiliser 0}, réservé en interne
+        pour repérer la fin du tableau statique), le nom, la catégorie, le
+        prix et le stock. Le produit est ajouté simultanément au tableau
+        statique \emph{et} au tableau dynamique.
+  \item \textbf{Afficher le catalogue} : liste tous les produits du tableau
+        statique sous forme de tableau formaté (ID, nom, catégorie, prix, stock).
+\end{enumerate}
+
+\section{Liste doublement chaînée (option 9)}
+
+Sous-menu dédié, indépendant du tableau statique/dynamique (un produit doit
+être saisi séparément pour apparaître dans la liste) :
+
+\begin{table}[h]
+\centering
+\begin{tabular}{cl}
+\toprule
+Sous-option & Fonction \\
+\midrule
+1 & Ajouter un produit en tête de liste \\
+2 & Ajouter un produit en queue de liste \\
+3 & Afficher la liste \\
+4 & Rechercher un produit par identifiant \\
+5 & Recherche multicritère (catégorie exacte + intervalle de prix) \\
+6 & Supprimer un produit par identifiant \\
+7 & Trier la liste par prix croissant (tri par insertion) puis l'afficher \\
+8 & Statistiques sur les prix de la liste \\
+\bottomrule
+\end{tabular}
+\caption{Sous-menu "Liste doublement chaînée"}
+\end{table}
+
+\section{Clients, panier et commandes (options 2 à 5)}
+
+\begin{itemize}
+  \item \textbf{Option 2} : créer un client (identifiant, nom, adresse) ou
+        afficher la liste des clients enregistrés.
+  \item \textbf{Option 3} : ajouter un produit du catalogue au panier d'un
+        client (par identifiant client puis identifiant produit), ou
+        consulter le catalogue complet avant de choisir.
+  \item \textbf{Option 4} : afficher le panier en cours d'un client
+        (identifiant requis), ou transformer ce panier en commande
+        enregistrée (un identifiant de commande est attribué automatiquement).
+  \item \textbf{Option 5} : afficher l'historique de toutes les commandes
+        passées, avec le client et les produits associés.
+\end{itemize}
+
+\section{Statistiques (option 6)}
+
+Calcule, sur le tableau statique \emph{ou} le tableau dynamique (au choix),
+les agrégations suivantes sur les prix : minimum, maximum, moyenne,
+médiane et écart-type.
+
+\section{Mise à jour d'un produit (option 10)}
+
+Demande l'identifiant produit puis, selon la structure choisie (statique,
+dynamique ou liste), permet de modifier un seul champ à la fois : nom,
+catégorie, prix ou stock.
+
+\section{Persistance des données}
+
+Toutes les données sont sauvegardées automatiquement à la fermeture
+(option 0) dans des fichiers binaires situés dans le dossier d'exécution :
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+Fichier & Contenu \\
+\midrule
+\texttt{produits.dat}   & Tableau statique des produits \\
+\texttt{clients.dat}    & Liste des clients \\
+\texttt{commandes.dat}  & Historique des commandes \\
+\texttt{liste.dat}      & Contenu de la liste doublement chaînée \\
+\texttt{dynamique.dat}  & Contenu du tableau dynamique de pointeurs \\
+\bottomrule
+\end{tabular}
+\caption{Fichiers de persistance générés}
+\end{table}
+
+Pour repartir d'un catalogue vide, supprimez ces fichiers (ou lancez
+\texttt{make clean}).
+
+\section{Mode benchmark}
+
+Une commande dédiée mesure les performances des trois structures :
+
+\begin{lstlisting}
+./projetsd1 --benchmark
+\end{lstlisting}
+
+Ce mode génère des jeux de données de tailles croissantes (jusqu'à
+$n=10^5$), selon trois distributions (aléatoire, triée, inversée), répète
+chaque mesure 10 fois, et écrit :
+\begin{itemize}
+  \item \texttt{resultats\_benchmark.csv} : les temps mesurés (insertion,
+        recherche, tri) pour chaque combinaison ;
+  \item \texttt{data/jeu\_n<taille>\_<distribution>.csv} : un échantillon des
+        données générées (pour $n \le 1000$).
+\end{itemize}
+
+Les courbes correspondantes s'obtiennent ensuite avec :
+\begin{lstlisting}
+python3 scripts/generer_courbes.py resultats_benchmark.csv
+\end{lstlisting}
+
+\textbf{Attention} : à $n=10^5$, le tri par insertion (coût $O(n^2)$ dans le
+pire cas) peut prendre plusieurs minutes au total ; c'est attendu.
+
+\section{Dépannage}
+
+\begin{itemize}
+  \item \textit{"Produit introuvable"} : vérifier que l'identifiant existe
+        bien dans la structure interrogée (un produit ajouté uniquement via
+        le sous-menu liste, option 9, n'existe pas dans le tableau statique,
+        et inversement).
+  \item Saisie d'un texte au lieu d'un nombre attendu : le programme affiche
+        \textit{"Saisie invalide"} et redemande une valeur au menu principal ;
+        dans les sous-menus, une saisie non numérique peut nécessiter de
+        relancer le programme.
+  \item Pour repartir d'un état totalement vierge : supprimer tous les
+        fichiers \texttt{*.dat} avant de relancer.
+\end{itemize}
+
+\end{document}

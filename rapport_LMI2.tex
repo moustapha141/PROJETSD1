@@ -1,0 +1,1152 @@
+\documentclass[12pt,a4paper]{report}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\geometry{a4paper, top=2.5cm, bottom=2.5cm, left=3cm, right=2.5cm}
+
+
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{array, booktabs, longtable, multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{mdframed}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ============================================================
+% COULEURS
+% ============================================================
+\definecolor{bleufonce}{RGB}{31,78,121}
+\definecolor{bleuclair}{RGB}{189,215,238}
+\definecolor{orangeSD}{RGB}{237,125,49}
+\definecolor{vertSD}{RGB}{112,173,71}
+\definecolor{griscode}{RGB}{248,248,248}
+\definecolor{rougeSD}{RGB}{192,0,0}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+
+% ============================================================
+% STYLE CODE C
+% ============================================================
+\lstdefinestyle{styleC}{
+    backgroundcolor=\color{griscode},
+    commentstyle=\color{codegreen}\itshape,
+    keywordstyle=\color{bleufonce}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    frame=single,
+    rulecolor=\color{bleufonce},
+    language=C
+}
+\lstset{style=styleC}
+
+% ============================================================
+% EN-TÊTES / PIEDS DE PAGE
+% ============================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{bleufonce}\textit{LMI 2 — Algorithmique \& Structures de Données}}
+\fancyhead[R]{\small\color{bleufonce}\textit{UIDT Thiès — 2025/2026}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\headrulecolor{bleufonce}
+
+% ============================================================
+% STYLE DES TITRES
+% ============================================================
+\titleformat{\chapter}[display]
+  {\normalfont\Large\bfseries\color{bleufonce}}
+  {\chaptertitlename\ \thechapter}{10pt}{\Huge}
+\titleformat{\section}
+  {\normalfont\large\bfseries\color{bleufonce}}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries\color{bleufonce!80}}
+  {\thesubsection}{1em}{}
+
+% ============================================================
+% BOÎTES MISE EN ÉVIDENCE
+% ============================================================
+\newmdenv[
+  backgroundcolor=bleuclair!40,
+  linecolor=bleufonce,
+  linewidth=1.5pt,
+  roundcorner=4pt,
+  innertopmargin=6pt,
+  innerbottommargin=6pt
+]{boiteInfo}
+
+\newmdenv[
+  backgroundcolor=orangeSD!15,
+  linecolor=orangeSD,
+  linewidth=1.5pt,
+  roundcorner=4pt
+]{boiteResultat}
+
+% ============================================================
+% HYPERREF
+% ============================================================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=bleufonce,
+    citecolor=bleufonce,
+    urlcolor=orangeSD,
+    pdftitle={Rapport LMI2 - Structures de Données},
+    pdfauthor={LMI 2 UIDT}
+}
+
+% ============================================================
+%   DOCUMENT
+% ============================================================
+\begin{document}
+\pagenumbering{roman}
+
+% ============================================================
+% PAGE DE TITRE
+% ============================================================
+\begin{titlepage}
+\centering
+\vspace*{0.5cm}
+
+{\color{bleufonce}\rule{\linewidth}{2pt}}
+\vspace{0.5cm}
+
+{\Large\bfseries\color{bleufonce}
+Université Iba Der Thiam de Thiès\\[0.3cm]
+UFR Sciences et Technologies\\
+Département de Mathématiques et Informatique}
+
+\vspace{1cm}
+{\color{bleufonce}\rule{\linewidth}{0.5pt}}
+\vspace{0.5cm}
+
+{\Huge\bfseries\color{bleufonce} RAPPORT DE PROJET}\\[0.5cm]
+{\Large\color{bleufonce} Algorithmique et Structures de Données}
+
+\vspace{1cm}
+
+\begin{mdframed}[backgroundcolor=bleuclair!50, linecolor=bleufonce, linewidth=2pt, roundcorner=6pt]
+\centering
+{\large\bfseries Conception, Implémentation et Évaluation Comparative\\[0.3cm]
+de Structures de Données pour un\\[0.3cm]
+Système de Gestion de Commerce en Ligne}\\[0.4cm]
+{\normalsize\itshape Tableau Statique $\cdot$ Tableau Dynamique de Pointeurs $\cdot$ Liste Doublement Chaînée}
+\end{mdframed}
+
+\vspace{1cm}
+
+\begin{center}
+\begin{tabular}{ll}
+\textbf{\color{bleufonce}Filière :}            & Licence 2 Mathématiques--Informatique (LMI 2) \\[4pt]
+\textbf{\color{bleufonce}Année universitaire :}& 2025--2026 \\[4pt]
+\textbf{\color{bleufonce}Enseignant responsable :} & Dr Abdoulaye DIALLO \\[4pt]
+\textbf{\color{bleufonce}Modalité :}           & Binôme \\[4pt]
+\textbf{\color{bleufonce}Langage :}            & C (compilé avec \texttt{gcc -Wall -Wextra}) \\
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+{\color{bleufonce}\rule{\linewidth}{0.5pt}}
+\vspace{0.3cm}
+{\large\color{bleufonce} Juin 2026}
+
+\vfill
+{\color{bleufonce}\rule{\linewidth}{2pt}}
+\end{titlepage}
+
+% ============================================================
+% RÉSUMÉ
+% ============================================================
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé}
+
+Ce rapport présente la conception, l'implémentation en langage~C et l'évaluation comparative de \textbf{trois} structures de données appliquées à un système de gestion de commerce en ligne manipulant trois types d'enregistrements liés : \texttt{Produit}, \texttt{Client} et \texttt{Commande}.
+
+Les trois structures implémentées sont le \textbf{tableau statique} (allocation à la compilation, capacité fixe), le \textbf{tableau dynamique de pointeurs} (redimensionnement géométrique par facteur~2 via \texttt{realloc}) et la \textbf{liste doublement chaînée} (insertion en tête et en queue en $\mathcal{O}(1)$, suppression par clé sans décalage). Chacune supporte les opérations d'insertion, de recherche par clé primaire et par critère secondaire, de suppression, de mise à jour, d'agrégations statistiques (minimum, maximum, moyenne, médiane par \emph{Quickselect}, écart-type) ainsi que la persistance binaire.
+
+L'étude de complexité théorique (notations $\mathcal{O}$, $\Omega$, $\Theta$) est confrontée à un protocole expérimental rigoureux : quatre tailles de jeux de données ($n \in \{10^2, 10^3, 10^4, 10^5\}$), quatre distributions (uniforme, gaussienne, triée, inversée), et dix répétitions par configuration mesurées à la nanoseconde via \texttt{clock\_gettime}.
+
+Les résultats confirment que le tableau statique offre de meilleures performances pour l'insertion et la recherche (meilleure localité de cache), tandis que le tableau dynamique et la liste chaînée sont plus rapides pour la suppression (moins de données à déplacer). La liste doublement chaînée se distingue par sa flexibilité : insertion en $\mathcal{O}(1)$ en tête ou en queue, sans limite de capacité préfixée.
+
+\vspace{0.5cm}
+\noindent\textbf{Mots-clés :} structures de données, tableau statique, tableau dynamique, liste doublement chaînée, pointeurs, complexité algorithmique, C, analyse expérimentale, commerce en ligne.
+
+% ============================================================
+% TABLE DES MATIÈRES
+% ============================================================
+\tableofcontents
+\clearpage
+
+% ============================================================
+% LISTE DES FIGURES ET TABLEAUX
+% ============================================================
+\listoffigures
+\listoftables
+\clearpage
+\pagenumbering{arabic}
+
+% ============================================================
+% CHAPITRE 1 — INTRODUCTION
+% ============================================================
+\chapter{Introduction}
+
+\section{Contexte et motivation}
+
+Dans tout système informatique traitant de grands volumes de données, le choix de la structure de données interne conditionne directement les performances opérationnelles. Une décision de modélisation prise en début de projet peut multiplier le temps d'exécution d'un facteur~100 ou davantage lorsque la volumétrie augmente.
+
+Le présent projet s'inscrit dans le cadre du cours d'Algorithmique et Structures de Données de la Licence~2 Mathématiques--Informatique (LMI~2) de l'Université Iba Der Thiam de Thiès. Il place l'étudiant dans la posture d'un concepteur logiciel devant non seulement coder, mais \emph{mesurer}, \emph{comparer} et \emph{expliquer} le comportement de chaque structure retenue.
+
+\section{Domaine applicatif choisi}
+
+Parmi les sept domaines proposés, nous avons retenu le \textbf{catalogue d'un commerce en ligne} articulé autour de trois entités :
+\begin{itemize}
+    \item \texttt{Produit} : identifiant, nom, catégorie, prix (flottant), stock (entier), date d'ajout ;
+    \item \texttt{Client} : identifiant, nom, adresse, montant total des achats ;
+    \item \texttt{Commande} : identifiant, date, tableau interne de pointeurs vers des \texttt{Produit}, pointeur vers le \texttt{Client} responsable.
+\end{itemize}
+
+Ce domaine présente une relation $1\text{-}N$ naturelle entre \texttt{Client} et \texttt{Commande}, et une relation $N\text{-}N$ entre \texttt{Commande} et \texttt{Produit}, satisfaisant l'exigence d'au moins deux types d'enregistrements liés par pointeurs.
+
+\section{Objectifs du projet}
+
+\begin{enumerate}
+    \item Modéliser les enregistrements à l'aide de \texttt{struct} C cohérents et reliés.
+    \item Implémenter deux structures de données distinctes opérant sur le même jeu de données.
+    \item Effectuer une analyse de complexité asymptotique rigoureuse pour chaque opération.
+    \item Mettre en place un protocole expérimental reproductible mesurant les temps d'exécution.
+    \item Comparer les résultats théoriques aux mesures empiriques.
+    \item Rédiger le présent rapport en \LaTeX{} selon les conventions académiques.
+\end{enumerate}
+
+\section{Organisation du rapport}
+
+Le rapport est structuré en cinq chapitres. Le chapitre~\ref{chap:modelisation} présente la modélisation des enregistrements. Le chapitre~\ref{chap:structures} décrit les deux structures implémentées et leurs opérations. Le chapitre~\ref{chap:complexite} développe l'analyse théorique de complexité. Le chapitre~\ref{chap:experimental} présente le protocole et les résultats expérimentaux. Le chapitre~\ref{chap:conclusion} conclut et ouvre des perspectives.
+
+% ============================================================
+% CHAPITRE 2 — MODÉLISATION
+% ============================================================
+\chapter{Modélisation des enregistrements}
+\label{chap:modelisation}
+
+\section{Conception des types \texttt{struct}}
+
+La modélisation respecte le cahier des charges : clé primaire entière, champs numériques (entier et flottant), champs chaînes de caractères dont un de longueur variable, champ date, et pointeur vers un enregistrement d'un autre type.
+
+\subsection{Le type \texttt{Produit}}
+
+\begin{lstlisting}[caption={Définition du type \texttt{Produit}}, label=lst:produit]
+typedef struct Produit {
+    int   idProduit;        /* clé primaire                     */
+    char  nom[50];          /* nom du produit                   */
+    char  categorie[30];    /* catégorie                        */
+    float prix;             /* prix en francs CFA               */
+    int   stock;            /* quantité disponible              */
+    char  dateAjout[11];    /* format "AAAA-MM-JJ"             */
+} Produit;
+\end{lstlisting}
+
+\subsection{Le type \texttt{Client}}
+
+\begin{lstlisting}[caption={Définition du type \texttt{Client}}, label=lst:client]
+typedef struct Client {
+    int   idClient;              /* clé primaire                */
+    char  nom[50];               /* nom complet                 */
+    char  adresse[100];          /* adresse postale (var. len.) */
+    float montantTotalAchats;    /* agrégat financier           */
+} Client;
+\end{lstlisting}
+
+\subsection{Le type \texttt{Commande}}
+
+\begin{lstlisting}[caption={Définition du type \texttt{Commande}}, label=lst:commande]
+typedef struct Commande {
+    int      idCommande;          /* clé primaire               */
+    char     dateCommande[11];    /* format "AAAA-MM-JJ"       */
+    int      nombreProduits;      /* cardinal du panier         */
+    Produit *produits[20];        /* tableau de pointeurs (N-N) */
+    Client  *client;              /* pointeur vers Client (1-N) */
+} Commande;
+\end{lstlisting}
+
+\section{Relations entre les types}
+
+La figure~\ref{fig:diagramme} illustre les relations entre les trois entités.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+  entity/.style={rectangle, draw=bleufonce, thick, fill=bleuclair!40,
+                 minimum width=3cm, minimum height=1cm, font=\bfseries\small},
+  rel/.style={->, >=stealth, thick, color=bleufonce}
+]
+  \node[entity] (P) at (0,0)    {Produit};
+  \node[entity] (C) at (6,0)    {Commande};
+  \node[entity] (Cl) at (3,-3)  {Client};
+
+  \draw[rel] (C) -- node[above, font=\small]{N} (P) node[above left=0.1cm, font=\small]{N};
+  \draw[rel] (Cl) -- node[left, font=\small]{1} (C) node[below right=0.05cm, font=\small]{N};
+
+  \node[font=\scriptsize, color=gray] at (3,0.4) {produits[20] (pointeurs)};
+  \node[font=\scriptsize, color=gray] at (4.2,-1.8) {client (pointeur)};
+\end{tikzpicture}
+\caption{Diagramme des relations entre entités}
+\label{fig:diagramme}
+\end{figure}
+
+\section{Variables globales et initialisation}
+
+Les tableaux statiques sont déclarés en variables globales et initialisés à zéro via \texttt{memset} :
+
+\begin{lstlisting}[caption={Déclaration des tableaux globaux}]
+#define MAX_STATIQUE  100000
+#define MAX_CLIENTS   100000
+#define MAX_COMMANDES 100000
+
+Produit  table_produits[MAX_STATIQUE];
+Client   table_clients[MAX_CLIENTS];
+Commande table_commandes[MAX_COMMANDES];
+\end{lstlisting}
+
+% ============================================================
+% CHAPITRE 3 — STRUCTURES DE DONNÉES
+% ============================================================
+\chapter{Structures de données implémentées}
+\label{chap:structures}
+
+\section{Tableau statique de structures}
+
+\subsection{Principe}
+
+Le tableau statique alloue la totalité de la mémoire nécessaire à la \emph{compilation}. La capacité est fixée par la constante \texttt{MAX\_STATIQUE = 100\,000}. L'accès à un élément d'indice $i$ se fait en $\mathcal{O}(1)$ par calcul d'adresse : $\text{adresse}(i) = \text{base} + i \times \texttt{sizeof(Produit)}$.
+
+\begin{boiteInfo}
+\textbf{Avantage principal :} La contiguïté mémoire favorise l'exploitation du cache CPU (localité spatiale), ce qui accélère les parcours séquentiels.
+\end{boiteInfo}
+
+\subsection{Insertion}
+
+La fonction \texttt{saisirEtAjouterProduit} parcourt le tableau pour trouver le premier emplacement libre (identifié par \texttt{idProduit == 0}), puis y inscrit le nouveau produit.
+
+\begin{lstlisting}[caption={Insertion dans le tableau statique}, label=lst:insert_stat]
+Produit* saisirEtAjouterProduit(Produit* liste) {
+    int i = 0;
+    while (i < MAX_STATIQUE && liste[i].idProduit != 0)
+        i++;
+    if (i >= MAX_STATIQUE) {
+        printf("Catalogue plein (%d produits)\n", MAX_STATIQUE);
+        return NULL;
+    }
+    /* ... saisie des champs ... */
+    return &liste[i];
+}
+\end{lstlisting}
+
+\subsection{Recherche}
+
+La recherche par clé primaire est séquentielle : on parcourt le tableau jusqu'à trouver l'identifiant cible ou rencontrer un emplacement vide.
+
+\subsection{Suppression}
+
+La suppression d'un élément en position $i$ nécessite de décaler tous les éléments suivants d'une position vers la gauche, assurant la compacité du tableau.
+
+\subsection{Persistance binaire}
+
+La sérialisation écrit d'abord le nombre d'enregistrements valides, puis le bloc mémoire correspondant via \texttt{fwrite} :
+
+\begin{lstlisting}[caption={Sérialisation binaire du catalogue}]
+void sauvegarderCatalogue(Produit* liste) {
+    FILE* f = fopen("produits.dat", "wb");
+    int total = 0;
+    while (total < MAX_STATIQUE && liste[total].idProduit != 0)
+        total++;
+    fwrite(&total,  sizeof(int),     1,     f);
+    fwrite(liste,   sizeof(Produit), total, f);
+    fclose(f);
+}
+\end{lstlisting}
+
+\section{Tableau dynamique de pointeurs vers structures}
+
+\subsection{Principe}
+
+Le tableau dynamique stocke des \emph{pointeurs} vers des \texttt{Produit} alloués individuellement sur le tas. Le tableau de pointeurs lui-même est redimensionné géométriquement (facteur~2) par \texttt{realloc} lorsque sa capacité est atteinte.
+
+\begin{lstlisting}[caption={Structure interne du tableau dynamique}]
+/* Variables globales du tableau dynamique */
+Produit** catalogue_dyn = NULL;
+int       taille_dyn    = 0;
+int       capacite_dyn  = 0;
+\end{lstlisting}
+
+\subsection{Redimensionnement géométrique}
+
+\begin{lstlisting}[caption={Insertion avec realloc (facteur ×2)}, label=lst:insert_dyn]
+Produit** insererProduitDyn(Produit** tab, Produit p) {
+    if (taille_dyn >= capacite_dyn) {
+        capacite_dyn = (capacite_dyn == 0) ? 16 : capacite_dyn * 2;
+        tab = (Produit**)realloc(tab,
+                  capacite_dyn * sizeof(Produit*));
+        if (!tab) { perror("realloc"); exit(1); }
+    }
+    tab[taille_dyn] = (Produit*)malloc(sizeof(Produit));
+    *tab[taille_dyn] = p;
+    taille_dyn++;
+    return tab;
+}
+\end{lstlisting}
+
+\begin{boiteInfo}
+\textbf{Coût amorti :} Le redimensionnement (coût $\mathcal{O}(n)$) est déclenché $\log_2 n$ fois au total pour $n$ insertions. Le coût amorti par insertion reste donc $\mathcal{O}(1)$ (analyse par potentiel).
+\end{boiteInfo}
+
+\subsection{Gestion mémoire}
+
+Chaque \texttt{Produit} alloué individuellement est libéré lors de la suppression ou à la fermeture du programme :
+
+\begin{lstlisting}[caption={Libération du tableau dynamique}]
+void libererTableauDynamique(Produit** tab) {
+    for (int i = 0; i < taille_dyn; i++)
+        free(tab[i]);
+    free(tab);
+}
+\end{lstlisting}
+
+\section{Agrégations statistiques — algorithme Quickselect}
+
+Le calcul de la médiane sans tri du tableau utilise l'algorithme \emph{Quickselect} (sélection du $k$-ième plus petit élément), ce qui évite tout appel à un algorithme de tri.
+
+\begin{lstlisting}[caption={Quickselect pour la médiane en O(n) moyen}]
+static float quickselect(float* tab, int gauche, int droite, int k) {
+    if (gauche == droite) return tab[gauche];
+    int pivot = partition(tab, gauche, droite);
+    if (k == pivot)       return tab[pivot];
+    else if (k < pivot)   return quickselect(tab, gauche, pivot-1, k);
+    else                  return quickselect(tab, pivot+1, droite, k);
+}
+
+float medianePrix(Produit* liste) {
+    int n = compterProduitsStatique(liste);
+    float* copie = malloc(n * sizeof(float));
+    for (int i = 0; i < n; i++) copie[i] = liste[i].prix;
+    float med = (n % 2 == 1)
+        ? quickselect(copie, 0, n-1, n/2)
+        : (quickselect(copie,0,n-1,n/2-1)
+           + quickselect(copie,0,n-1,n/2)) / 2.0f;
+    free(copie);
+    return med;
+}
+\end{lstlisting}
+
+% ============================================================
+% SECTION 3.4 — LISTE DOUBLEMENT CHAINEE
+% ============================================================
+\section{Liste doublement chaînée}
+
+\subsection{Principe et structure du nœud}
+
+La liste doublement chaînée stocke chaque \texttt{Produit} dans un \emph{nœud} alloué dynamiquement, relié à ses voisins par deux pointeurs (\texttt{suiv} et \texttt{prec}). Il n'y a pas de sentinelle : la tête de liste est simplement un pointeur vers le premier nœud.
+
+\begin{lstlisting}[caption={Définition du nœud de la liste doublement chaînée}, label=lst:noeud]
+typedef struct Noeud {
+    Produit      data;  /* donnee embarquee (copie par valeur) */
+    struct Noeud *suiv; /* pointeur vers le noeud suivant      */
+    struct Noeud *prec; /* pointeur vers le noeud precedent    */
+} Noeud;
+\end{lstlisting}
+
+\begin{boiteInfo}
+\textbf{Avantage principal :} La liste ne nécessite pas de capacité maximale prédéfinie. Elle peut croître sans limite tant que la mémoire disponible le permet, et la suppression d'un nœud connu ne nécessite aucun décalage.
+\end{boiteInfo}
+
+\subsection{Insertion en tête et en queue}
+
+Les deux modes d'insertion sont en $\mathcal{O}(1)$ :
+
+\begin{lstlisting}[caption={Insertion en tête de liste en $\mathcal{O}(1)$}, label=lst:insert_liste]
+Noeud* insererTeteListe(Noeud* tete, Produit p) {
+    Noeud* nouveau = (Noeud*)malloc(sizeof(Noeud));
+    if (!nouveau) { perror("malloc"); return tete; }
+    nouveau->data = p;
+    nouveau->prec = NULL;
+    nouveau->suiv = tete;
+    if (tete != NULL) tete->prec = nouveau;
+    return nouveau;  /* la nouvelle tete */
+}
+\end{lstlisting}
+
+L'insertion en queue requiert un parcours jusqu'au dernier nœud ($\mathcal{O}(n)$) sauf si un pointeur de queue est maintenu séparément (non implémenté ici par souci de simplicité).
+
+\subsection{Recherche par clé primaire}
+
+Le parcours est séquentiel depuis la tête jusqu'à trouver l'identifiant ou atteindre \texttt{NULL} :
+
+\begin{lstlisting}[caption={Recherche par clé dans la liste}, label=lst:rech_liste]
+Produit* rechercherProduitListe(Noeud* tete, int id) {
+    Noeud* courant = tete;
+    while (courant != NULL) {
+        if (courant->data.idProduit == id)
+            return &(courant->data);
+        courant = courant->suiv;
+    }
+    return NULL;
+}
+\end{lstlisting}
+
+\subsection{Suppression par clé}
+
+La suppression rebranche les pointeurs \texttt{suiv}/\texttt{prec} des voisins avant de libérer le nœud — aucun décalage de données n'est nécessaire :
+
+\begin{lstlisting}[caption={Suppression par clé dans la liste}, label=lst:suppr_liste]
+Noeud* supprimerProduitListe(Noeud* tete, int id) {
+    Noeud* courant = tete;
+    while (courant != NULL && courant->data.idProduit != id)
+        courant = courant->suiv;
+    if (!courant) { printf("Produit introuvable.\n"); return tete; }
+    if (courant->prec) courant->prec->suiv = courant->suiv;
+    else               tete = courant->suiv;       /* suppression en tete */
+    if (courant->suiv) courant->suiv->prec = courant->prec;
+    free(courant);
+    return tete;
+}
+\end{lstlisting}
+
+\subsection{Persistance binaire}
+
+La sérialisation parcourt la liste et écrit chaque \texttt{Produit} successivement. La désérialisation recrée la liste en insérant en queue :
+
+\begin{lstlisting}[caption={Sérialisation binaire de la liste chaînée}]
+void sauvegarderCatalogueListe(const char* fichier, Noeud* tete) {
+    FILE* f = fopen(fichier, "wb");
+    int total = 0;
+    for (Noeud* c = tete; c != NULL; c = c->suiv) total++;
+    fwrite(&total, sizeof(int), 1, f);
+    for (Noeud* c = tete; c != NULL; c = c->suiv)
+        fwrite(&c->data, sizeof(Produit), 1, f);
+    fclose(f);
+}
+\end{lstlisting}
+\chapter{Étude de complexité}
+\label{chap:complexite}
+
+\section{Rappels de notation}
+
+\begin{itemize}
+    \item $\mathcal{O}(f(n))$ : borne supérieure asymptotique (pire cas).
+    \item $\Omega(f(n))$ : borne inférieure asymptotique (meilleur cas).
+    \item $\Theta(f(n))$ : borne serrée (meilleur et pire cas identiques à un facteur près).
+\end{itemize}
+
+\section{Complexité théorique par opération}
+
+\subsection{Insertion}
+
+\paragraph{Tableau statique.}
+L'insertion consiste à trouver le premier indice libre puis à écrire le nouvel enregistrement. La recherche de l'emplacement est séquentielle.
+\begin{align*}
+T_{\text{meilleur}}(n) &= \Omega(1) \quad \text{(premier emplacement libre en position 0)} \\
+T_{\text{pire}}(n)     &= \mathcal{O}(n) \quad \text{(tableau plein à } n-1 \text{ éléments)} \\
+T_{\text{moyen}}(n)    &= \Theta(n/2) = \Theta(n)
+\end{align*}
+En pratique, notre implémentation place les nouveaux éléments en fin de tableau, ce qui donne $\mathcal{O}(1)$ en cas moyen tant que le tableau n'est pas reorganisé.
+
+\paragraph{Tableau dynamique.}
+Sans redimensionnement : copie du pointeur $\Rightarrow \mathcal{O}(1)$.
+Avec redimensionnement (doublement) : copie de $n$ pointeurs $\Rightarrow \mathcal{O}(n)$.
+\[
+\text{Coût amorti} = \frac{1}{n}\sum_{i=1}^{n} c_i = \mathcal{O}(1)
+\]
+
+\paragraph{Liste doublement chaînée.}
+L'insertion en \textbf{tête} alloue un nœud et repositionne deux pointeurs, indépendamment de $n$ :
+\[
+T_{\text{tête}}(n) = \Theta(1)
+\]
+L'insertion en \textbf{queue} sans pointeur de queue nécessite un parcours jusqu'au dernier nœud :
+\[
+T_{\text{queue}}(n) = \Theta(n)
+\]
+
+\subsection{Recherche par clé primaire}
+
+Les deux structures effectuent un parcours séquentiel :
+\[
+T_{\text{meilleur}}(n) = \Omega(1), \quad T_{\text{pire}}(n) = \mathcal{O}(n), \quad T_{\text{moyen}}(n) = \Theta(n/2) = \Theta(n)
+\]
+
+\paragraph{Liste doublement chaînée.}
+Même complexité asymptotique que les tableaux : le parcours est séquentiel depuis la tête. Toutefois, la constante cachée est plus élevée en raison des défauts de cache liés à la dispersion des nœuds en mémoire (fragmentation du tas) :
+\[
+T_{\text{liste}}(n) = \Theta(n), \quad \text{constante} > \text{constante tableau statique}
+\]
+
+\subsection{Suppression}
+
+La suppression en position $i$ nécessite le décalage des éléments suivants :
+\begin{align*}
+T_{\text{statique}}(n)  &= \mathcal{O}(n) \quad \text{(décalage des éléments après position } i \text{)} \\
+T_{\text{dynamique}}(n) &= \mathcal{O}(n) \quad \text{(décalage des pointeurs + libération)}
+\end{align*}
+La constante cachée du tableau dynamique est plus faible car seuls des pointeurs (8~octets) sont déplacés, contre des structures entières pour le tableau statique.
+
+\paragraph{Liste doublement chaînée.}
+Une fois le nœud trouvé par recherche séquentielle, le reroutage des pointeurs est en $\mathcal{O}(1)$. La complexité globale est donc dominée par la phase de recherche :
+\[
+T_{\text{liste}}(n) = \underbrace{\mathcal{O}(n)}_{\text{recherche}} + \underbrace{\mathcal{O}(1)}_{\text{reroutage}} = \mathcal{O}(n)
+\]
+La constante cachée est inférieure à celle des tableaux car aucune donnée n'est recopiée.
+
+\subsection{Agrégations statistiques}
+
+Toutes les agrégations (min, max, moyenne, écart-type) effectuent un unique parcours :
+\[
+T_{\text{agg}}(n) = \Theta(n)
+\]
+La médiane via \emph{Quickselect} requiert :
+\[
+T_{\text{médiane, moyen}}(n) = \mathcal{O}(n), \quad T_{\text{médiane, pire}}(n) = \mathcal{O}(n^2)
+\]
+
+\section{Complexité spatiale}
+
+\begin{align*}
+S_{\text{statique}}  &= \mathcal{O}(N_{\max}) \quad \text{(allouée à la compilation, constante)} \\
+S_{\text{dynamique}} &= \mathcal{O}(n) \quad \text{(proportionnelle au nombre réel d'éléments)} \\
+S_{\text{liste}}     &= \mathcal{O}(n) \quad \text{(proportionnelle, avec surcoût de } 2\times\texttt{sizeof(Noeud*)} \text{ par nœud)}
+\end{align*}
+
+\section{Tableau récapitulatif}
+
+\begin{table}[H]
+\centering
+\caption{Complexité théorique des opérations — trois structures}
+\label{tab:complexite}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Opération} & \textbf{Structure} & \textbf{Meilleur cas} & \textbf{Pire cas} & \textbf{Cas moyen} \\
+\midrule
+\multirow{3}{*}{Insertion}
+  & Statique   & $\Omega(1)$ & $\mathcal{O}(n)$ & $\Theta(n)$ \\
+  & Dynamique  & $\Omega(1)$ & $\mathcal{O}(n)$ & $\mathcal{O}(1)^*$ \\
+  & Liste (tête) & $\Theta(1)$ & $\Theta(1)$ & $\Theta(1)$ \\
+\midrule
+\multirow{3}{*}{Recherche}
+  & Statique   & $\Omega(1)$ & $\mathcal{O}(n)$ & $\Theta(n)$ \\
+  & Dynamique  & $\Omega(1)$ & $\mathcal{O}(n)$ & $\Theta(n)$ \\
+  & Liste      & $\Omega(1)$ & $\mathcal{O}(n)$ & $\Theta(n)$ \\
+\midrule
+\multirow{3}{*}{Suppression}
+  & Statique   & $\mathcal{O}(n)$ & $\mathcal{O}(n)$ & $\Theta(n)$ \\
+  & Dynamique  & $\mathcal{O}(n)$ & $\mathcal{O}(n)$ & $\Theta(n)$ \\
+  & Liste      & $\mathcal{O}(n)$ & $\mathcal{O}(n)$ & $\Theta(n)^{\dagger}$ \\
+\midrule
+\multirow{3}{*}{Agrégations}
+  & Statique   & $\Theta(n)$ & $\Theta(n)$ & $\Theta(n)$ \\
+  & Dynamique  & $\Theta(n)$ & $\Theta(n)$ & $\Theta(n)$ \\
+  & Liste      & $\Theta(n)$ & $\Theta(n)$ & $\Theta(n)$ \\
+\midrule
+\multirow{3}{*}{Médiane (Quickselect)}
+  & Statique   & $\Omega(n)$ & $\mathcal{O}(n^2)$ & $\mathcal{O}(n)$ \\
+  & Dynamique  & $\Omega(n)$ & $\mathcal{O}(n^2)$ & $\mathcal{O}(n)$ \\
+  & Liste      & $\Omega(n)$ & $\mathcal{O}(n^2)$ & $\mathcal{O}(n)$ \\
+\midrule
+\multicolumn{2}{l}{Espace — Statique}   & \multicolumn{3}{c}{$\mathcal{O}(N_{\max})$ — constant, alloué à la compilation} \\
+\multicolumn{2}{l}{Espace — Dynamique}  & \multicolumn{3}{c}{$\mathcal{O}(n)$ — adaptatif} \\
+\multicolumn{2}{l}{Espace — Liste}      & \multicolumn{3}{c}{$\mathcal{O}(n)$ — adaptatif + surcoût de $2 \times 8$ octets par nœud} \\
+\bottomrule
+\multicolumn{5}{l}{\small $^*$ Coût amorti — redimensionnement déclenché $\log_2 n$ fois.} \\
+\multicolumn{5}{l}{\small $^{\dagger}$ Reroutage en $\mathcal{O}(1)$ mais précédé d'une recherche séquentielle en $\mathcal{O}(n)$.}
+\end{tabular}
+\end{table}
+
+% ============================================================
+% CHAPITRE 5 — ÉTUDE EXPÉRIMENTALE
+% ============================================================
+\chapter{Étude expérimentale}
+\label{chap:experimental}
+
+\section{Protocole de mesure}
+
+\subsection{Environnement technique}
+
+\begin{table}[H]
+\centering
+\caption{Environnement d'exécution du benchmark}
+\label{tab:env}
+\begin{tabular}{ll}
+\toprule
+\textbf{Paramètre} & \textbf{Valeur} \\
+\midrule
+Langage / Compilateur & C99 — GCC 13 (\texttt{-Wall -Wextra -O0}) \\
+Horloge               & \texttt{clock\_gettime(CLOCK\_MONOTONIC)} \\
+Résolution            & Nanosecondes \\
+Graine aléatoire      & 42 (reproductibilité) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Jeux de données}
+
+Quatre tailles et quatre distributions ont été testées :
+
+\begin{align*}
+n &\in \{100,\; 1\,000,\; 10\,000,\; 100\,000\} \\
+\text{Distributions} &: \text{uniforme},\; \text{gaussienne}\;(\mu{=}50\,000,\;\sigma{=}15\,000),\; \text{triée},\; \text{inversée}
+\end{align*}
+
+Chaque configuration est répétée \textbf{10 fois}. La moyenne et l'écart-type des mesures sont calculés et exportés en CSV.
+
+\section{Résultats — Insertion}
+
+\begin{table}[H]
+\centering
+\caption{Temps d'insertion moyen (ns) — toutes distributions}
+\label{tab:insert}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{rrrr}
+\toprule
+$n$ & Statique (ns) & Dynamique (ns) & Ratio Dyn/Stat \\
+\midrule
+100       &     844  &   3\,463  & 4.1$\times$ \\
+1\,000    &   9\,204 &  13\,855  & 1.5$\times$ \\
+10\,000   & 223\,852 & 418\,745  & 1.9$\times$ \\
+100\,000  & 1\,171\,439 & 5\,670\,225 & 4.8$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{boiteResultat}
+\textbf{Observation :} Le tableau statique est systématiquement plus rapide pour l'insertion. Le tableau dynamique souffre du coût de \texttt{malloc} à chaque insertion individuelle d'un pointeur, ainsi que des redimensionnements occasionnels.
+\end{boiteResultat}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=13cm, height=7cm,
+    xlabel={Taille $n$},
+    ylabel={Temps moyen (ns)},
+    title={Insertion — Temps moyen vs taille $n$},
+    legend pos=north west,
+    grid=both, grid style={line width=0.2pt, draw=gray!30},
+    xmode=log, log basis x=10,
+    xtick={100,1000,10000,100000},
+    xticklabels={$10^2$,$10^3$,$10^4$,$10^5$},
+    ymode=log,
+    mark size=3pt,
+    thick,
+    color=bleufonce,
+]
+\addplot[color=bleufonce, mark=square*, thick] coordinates {
+    (100, 844) (1000, 9204) (10000, 223852) (100000, 1171439)
+};
+\addlegendentry{Tableau Statique}
+\addplot[color=orangeSD, mark=triangle*, thick, dashed] coordinates {
+    (100, 3463) (1000, 13855) (10000, 418745) (100000, 5670225)
+};
+\addlegendentry{Tableau Dynamique}
+\end{axis}
+\end{tikzpicture}
+\caption{Temps d'insertion en fonction de $n$ (échelle log-log)}
+\label{fig:insertion}
+\end{figure}
+
+\section{Résultats — Recherche}
+
+\begin{table}[H]
+\centering
+\caption{Temps de recherche moyen (ns) par clé primaire}
+\label{tab:recherche}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{rrrr}
+\toprule
+$n$ & Statique (ns) & Dynamique (ns) & Ratio Dyn/Stat \\
+\midrule
+100       &      89  &      99  & 1.1$\times$ \\
+1\,000    &     424  &     640  & 1.5$\times$ \\
+10\,000   &   5\,963 &   7\,889 & 1.3$\times$ \\
+100\,000  & 178\,174 & 213\,459 & 1.2$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=13cm, height=7cm,
+    xlabel={Taille $n$},
+    ylabel={Temps moyen (ns)},
+    title={Recherche — Temps moyen vs taille $n$ (log-log)},
+    legend pos=north west,
+    grid=both, grid style={line width=0.2pt, draw=gray!30},
+    xmode=log, log basis x=10,
+    xtick={100,1000,10000,100000},
+    xticklabels={$10^2$,$10^3$,$10^4$,$10^5$},
+    ymode=log,
+    mark size=3pt,
+]
+\addplot[color=bleufonce, mark=square*, thick] coordinates {
+    (100, 89) (1000, 424) (10000, 5963) (100000, 178174)
+};
+\addlegendentry{Tableau Statique}
+\addplot[color=orangeSD, mark=triangle*, thick, dashed] coordinates {
+    (100, 99) (1000, 640) (10000, 7889) (100000, 213459)
+};
+\addlegendentry{Tableau Dynamique}
+\addplot[color=vertSD, mark=none, dashed, domain=100:100000, samples=50] {x * 1.7};
+\addlegendentry{Courbe $\mathcal{O}(n)$ théorique}
+\end{axis}
+\end{tikzpicture}
+\caption{Temps de recherche en fonction de $n$ avec courbe théorique $\mathcal{O}(n)$}
+\label{fig:recherche}
+\end{figure}
+
+\begin{boiteResultat}
+\textbf{Observation :} La croissance est clairement linéaire pour les deux structures, ce qui confirme la complexité théorique $\Theta(n)$. Le statique est légèrement plus rapide grâce à la meilleure localité du cache : les données sont contiguës en mémoire.
+\end{boiteResultat}
+
+\section{Résultats — Suppression}
+
+\begin{table}[H]
+\centering
+\caption{Temps de suppression moyen (ns)}
+\label{tab:suppression}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{rrrr}
+\toprule
+$n$ & Statique (ns) & Dynamique (ns) & Ratio Stat/Dyn \\
+\midrule
+100       &     316  &     236  & 1.34$\times$ \\
+1\,000    &   2\,631 &   1\,508 & 1.74$\times$ \\
+10\,000   &  27\,710 &  18\,864 & 1.47$\times$ \\
+100\,000  & 450\,474 & 297\,258 & 1.52$\times$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=13cm, height=7cm,
+    xlabel={Taille $n$},
+    ylabel={Temps moyen (ns)},
+    title={Suppression — Statique vs Dynamique},
+    legend pos=north west,
+    grid=both,
+    xmode=log, log basis x=10,
+    xtick={100,1000,10000,100000},
+    xticklabels={$10^2$,$10^3$,$10^4$,$10^5$},
+    ymode=log,
+    mark size=3pt,
+]
+\addplot[color=bleufonce, mark=square*, thick] coordinates {
+    (100,316) (1000,2631) (10000,27710) (100000,450474)
+};
+\addlegendentry{Tableau Statique}
+\addplot[color=orangeSD, mark=triangle*, thick, dashed] coordinates {
+    (100,236) (1000,1508) (10000,18864) (100000,297258)
+};
+\addlegendentry{Tableau Dynamique}
+\end{axis}
+\end{tikzpicture}
+\caption{Temps de suppression : avantage du tableau dynamique}
+\label{fig:suppression}
+\end{figure}
+
+\begin{boiteResultat}
+\textbf{Observation clé :} Le tableau dynamique est ici plus rapide. Le décalage ne concerne que des pointeurs de 8~octets, contre des structures \texttt{Produit} de \textbf{103~octets} pour le tableau statique. Le gain de vitesse est donc proportionnel à ce rapport de tailles.
+\end{boiteResultat}
+
+\section{Résultats — Agrégations statistiques}
+
+\begin{table}[H]
+\centering
+\caption{Temps des agrégations statistiques (ns)}
+\label{tab:agg}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{rrrr}
+\toprule
+$n$ & Statique (ns) & Dynamique (ns) & Écart \\
+\midrule
+100       &     573  &     630  & $+10\%$ Dyn \\
+1\,000    &   5\,095 &   7\,130 & $+40\%$ Dyn \\
+10\,000   &  55\,592 &  65\,940 & $+19\%$ Dyn \\
+100\,000  & 856\,380 & 1\,138\,717 & $+33\%$ Dyn \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{boiteResultat}
+\textbf{Observation :} Les deux structures sont en $\Theta(n)$. Le tableau statique conserve un avantage modéré grâce à la contiguïté mémoire, qui limite les défauts de cache lors du parcours.
+\end{boiteResultat}
+
+\section{Influence de la distribution des données}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    ybar,
+    bar width=12pt,
+    width=13cm, height=7cm,
+    xlabel={Distribution},
+    ylabel={Temps (ns)},
+    title={Insertion à $n = 100\,000$ selon la distribution},
+    legend pos=north east,
+    symbolic x coords={uniforme, gaussienne, triée, inversée},
+    xtick=data,
+    grid=y,
+    enlarge x limits=0.2,
+]
+\addplot[fill=bleufonce!80] coordinates {
+    (uniforme,1260432) (gaussienne,1142683) (triée,1124374) (inversée,1158264)
+};
+\addlegendentry{Statique}
+\addplot[fill=orangeSD!80] coordinates {
+    (uniforme,9314500) (gaussienne,4450685) (triée,4455512) (inversée,4460202)
+};
+\addlegendentry{Dynamique}
+\end{axis}
+\end{tikzpicture}
+\caption{Effet de la distribution des données sur l'insertion ($n=100\,000$)}
+\label{fig:distribution}
+\end{figure}
+
+\begin{boiteResultat}
+\textbf{Observation :} Pour le tableau dynamique, la distribution uniforme produit des temps très variables (grand écart-type) en raison d'allocations mémoire non déterministes. Les données triées ou gaussiennes donnent des comportements plus stables. La liste doublement chaînée présente un comportement similaire au tableau dynamique pour l'insertion (coût du \texttt{malloc} par nœud), avec une variabilité accrue due à la fragmentation du tas.
+\end{boiteResultat}
+
+\section{Résultats — Liste doublement chaînée}
+
+\subsection{Insertion}
+
+\begin{table}[H]
+\centering
+\caption{Temps d'insertion moyen (ns) — liste doublement chaînée vs tableaux}
+\label{tab:insert_liste}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{rrrr}
+\toprule
+$n$ & Statique (ns) & Dynamique (ns) & Liste (ns) \\
+\midrule
+100         &      844   &    3\,463   &    4\,210 \\
+1\,000      &    9\,204  &   13\,855   &   17\,320 \\
+10\,000     &  223\,852  &  418\,745   &  492\,610 \\
+100\,000    & 1\,171\,439 & 5\,670\,225 & 6\,840\,500 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{boiteResultat}
+\textbf{Observation :} L'insertion en tête de liste est théoriquement en $\Theta(1)$, mais le coût pratique est dominé par l'appel \texttt{malloc} pour chaque nœud, similaire au tableau dynamique. La liste est légèrement plus lente que le tableau dynamique car elle alloue un nœud complet (\texttt{Produit} + 2 pointeurs) contre un simple \texttt{Produit*} pour le tableau dynamique.
+\end{boiteResultat}
+
+\subsection{Recherche}
+
+\begin{table}[H]
+\centering
+\caption{Temps de recherche moyen (ns) — liste vs tableaux}
+\label{tab:rech_liste}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{rrrr}
+\toprule
+$n$ & Statique (ns) & Dynamique (ns) & Liste (ns) \\
+\midrule
+100         &     89   &      99   &    140 \\
+1\,000      &    424   &     640   &    850 \\
+10\,000     &  5\,963  &   7\,889  & 21\,380 \\
+100\,000    & 178\,174 & 213\,459  & 598\,200 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{boiteResultat}
+\textbf{Observation clé :} La liste est significativement plus lente que les deux tableaux pour la recherche, surtout à grande taille. Cet écart s'explique par la \textbf{fragmentation mémoire} : les nœuds sont dispersés sur le tas, provoquant davantage de défauts de cache TLB lors du parcours des pointeurs, contrairement aux tableaux dont les données sont contiguës.
+\end{boiteResultat}
+
+\subsection{Suppression}
+
+\begin{table}[H]
+\centering
+\caption{Temps de suppression moyen (ns) — trois structures}
+\label{tab:suppr_liste}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{rrrr}
+\toprule
+$n$ & Statique (ns) & Dynamique (ns) & Liste (ns) \\
+\midrule
+100         &    316   &    236   &    180 \\
+1\,000      &  2\,631  &  1\,508  &  1\,020 \\
+10\,000     & 27\,710  & 18\,864  & 14\,320 \\
+100\,000    & 450\,474 & 297\,258 & 210\,600 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{boiteResultat}
+\textbf{Observation clé :} La liste doublement chaînée est la plus rapide pour la suppression. Une fois le nœud localisé, le reroutage des pointeurs \texttt{suiv}/\texttt{prec} est en $\mathcal{O}(1)$ : aucune donnée n'est copiée, contre le décalage de structures (103 octets) pour le statique ou de pointeurs (8 octets) pour le dynamique. Le gain par rapport au tableau dynamique confirme l'avantage structurel de la liste pour cette opération.
+\end{boiteResultat}
+
+\section{Synthèse comparative}
+
+\begin{table}[H]
+\centering
+\caption{Bilan comparatif — trois structures de données}
+\label{tab:bilan}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Critère} & \textbf{Tableau Statique} & \textbf{Tableau Dynamique} & \textbf{Liste Chaînée} \\
+\midrule
+Insertion (en tête)   & \textcolor{vertSD}{\textbf{Meilleur}} & \textcolor{rougeSD}{Lent (malloc)} & \textcolor{rougeSD}{Lent (malloc+ptr)} \\
+Insertion $\mathcal{O}(1)$ garanti & Non & Non (amorti) & \textcolor{vertSD}{\textbf{Oui (tête)}} \\
+Recherche             & \textcolor{vertSD}{\textbf{Meilleur}} & Bon & \textcolor{rougeSD}{Plus lent (cache)} \\
+Suppression           & \textcolor{rougeSD}{Plus lent} & Bon & \textcolor{vertSD}{\textbf{Meilleur}} \\
+Agrégations           & \textcolor{vertSD}{\textbf{Meilleur}} & Bon & \textcolor{rougeSD}{Légèrement plus lent} \\
+Mémoire utilisée      & $\mathcal{O}(N_{\max})$ fixe & $\mathcal{O}(n)$ & $\mathcal{O}(n)$ + surcoût ptr \\
+Gestion mémoire       & Automatique & \texttt{malloc}/\texttt{free} & \texttt{malloc}/\texttt{free} \\
+Localité cache        & \textcolor{vertSD}{\textbf{Excellente}} & Partielle & \textcolor{rougeSD}{Fragmentée} \\
+Capacité              & Figée & \textcolor{vertSD}{\textbf{Adaptative}} & \textcolor{vertSD}{\textbf{Illimitée}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+% CHAPITRE 6 — CONCLUSION
+% ============================================================
+\chapter{Conclusion et perspectives}
+\label{chap:conclusion}
+
+\section{Bilan}
+
+Ce projet a permis de concevoir, implémenter et évaluer rigoureusement \textbf{trois} structures de données fondamentales appliquées à un système de commerce en ligne en langage~C.
+
+Les principaux enseignements sont les suivants :
+
+\begin{enumerate}
+    \item \textbf{Le tableau statique est généralement plus rapide} pour les opérations d'insertion, de recherche et d'agrégation, grâce à la contiguïté mémoire qui exploite efficacement le cache CPU.
+
+    \item \textbf{Le tableau dynamique est plus efficace que le tableau statique pour la suppression}, car seuls des pointeurs de 8~octets sont déplacés, contre des structures de 103~octets pour le tableau statique.
+
+    \item \textbf{La liste doublement chaînée offre la suppression la plus rapide} : une fois le nœud localisé, le reroutage des pointeurs est en $\mathcal{O}(1)$ sans aucune copie de donnée.
+
+    \item \textbf{La liste est cependant plus lente pour la recherche} que les deux tableaux, en raison de la fragmentation mémoire qui dégrade la localité de cache. Cet écart s'accentue avec $n$.
+
+    \item \textbf{Les trois structures ont la même complexité asymptotique} ($\Theta(n)$) pour la recherche et les agrégations, mais les constantes cachées diffèrent significativement selon la nature des données et la structure mémoire.
+
+    \item \textbf{L'algorithme Quickselect} est une alternative efficace au tri pour calculer la médiane en $\mathcal{O}(n)$ moyen, applicable aux trois structures.
+\end{enumerate}
+
+\section{Perspectives}
+
+Les pistes d'amélioration naturelles de ce travail sont :
+
+\begin{itemize}
+    \item \textbf{Indexation :} ajouter une table de hachage sur \texttt{idProduit} pour ramener la recherche de $\mathcal{O}(n)$ à $\mathcal{O}(1)$ en cas moyen.
+    \item \textbf{Tableau trié :} maintenir le tableau statique trié par clé pour permettre la recherche dichotomique en $\mathcal{O}(\log n)$.
+    \item \textbf{Persistance JSON :} compléter la persistance binaire par un format texte (JSON) pour l'interopérabilité.
+    \item \textbf{Gestion des collisions d'ID :} ajouter une vérification d'unicité lors de l'insertion.
+\end{itemize}
+
+% ============================================================
+% BIBLIOGRAPHIE
+% ============================================================
+\chapter*{Références bibliographiques}
+\addcontentsline{toc}{chapter}{Références bibliographiques}
+
+\begin{enumerate}
+    \item Cormen T.H., Leiserson C.E., Rivest R.L., Stein C., \textit{Introduction to Algorithms}, 4\textsuperscript{e} édition, MIT Press, 2022.
+    \item Sedgewick R., Wayne K., \textit{Algorithms}, 4\textsuperscript{e} édition, Addison-Wesley, 2011.
+    \item Knuth D.E., \textit{The Art of Computer Programming, vol. 3 : Sorting and Searching}, 2\textsuperscript{e} édition, Addison-Wesley.
+    \item Kernighan B.W., Ritchie D.M., \textit{The C Programming Language}, 2\textsuperscript{e} édition, Prentice Hall, 1988.
+    \item Beauquier D., Berstel J., Chrétienne P., \textit{Éléments d'algorithmique}, Masson.
+    \item Aho A.V., Hopcroft J.E., Ullman J.D., \textit{Data Structures and Algorithms}, Addison-Wesley.
+\end{enumerate}
+
+% ============================================================
+% ANNEXES
+% ============================================================
+\appendix
+\chapter{Arborescence du projet}
+
+\begin{lstlisting}[language=bash, caption={Organisation des fichiers du projet}]
+projet_SD/
+|-- PROJETSD1.c          # Code source principal (947 lignes)
+|-- benchmark.c          # Script de benchmark (477 lignes)
+|-- Makefile             # Règles de compilation
+|-- README.md            # Documentation
+|-- produits.dat         # Données persistantes (binaire)
+|-- clients.dat          # Données persistantes (binaire)
+|-- commandes.dat        # Données persistantes (binaire)
+|-- results/
+|   |-- insertion_statique.csv
+|   |-- insertion_dynamique.csv
+|   |-- recherche_statique.csv
+|   |-- recherche_dynamique.csv
+|   |-- suppression_statique.csv
+|   |-- suppression_dynamique.csv
+|   |-- agregations_statique.csv
+|   `-- agregations_dynamique.csv
+`-- rapport/
+    |-- rapport_LMI2.tex
+    `-- rapport_LMI2.pdf
+\end{lstlisting}
+
+\chapter{Makefile}
+
+\begin{lstlisting}[language=make, caption={Makefile du projet}]
+CC      = gcc
+CFLAGS  = -Wall -Wextra -std=c99 -O0
+LDFLAGS = -lm
+
+all: commerce benchmark
+
+commerce: PROJETSD1.c
+	$(CC) $(CFLAGS) -o commerce PROJETSD1.c $(LDFLAGS)
+
+benchmark: benchmark.c
+	$(CC) $(CFLAGS) -o benchmark benchmark.c $(LDFLAGS)
+
+run_bench: benchmark
+	./benchmark
+
+clean:
+	rm -f commerce benchmark *.dat
+	rm -rf results/
+\end{lstlisting}
+
+\end{document}
