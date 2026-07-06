@@ -86,7 +86,7 @@ Produit* saisirEtAjouterProduit(Produit* liste) {
     }
     
     if (i >= MAX_STATIQUE) {
-        printf("Le catalogue statique est plein de %d produits\n", MAX_STATIQUE);
+        printf("Le catalogue statique est plein de %d du produits\n", MAX_STATIQUE);
         return NULL;
     }
 
@@ -139,7 +139,7 @@ void sauvegarderCatalogue(Produit* liste) {
     fwrite(&total, sizeof(int), 1, f);
     fwrite(liste, sizeof(Produit), total, f);
     fclose(f);
-    printf("Catalogue sauvegarde des %d produits enregistres\n", total);
+    printf("Catalogue sauvegarde des %d du produits enregistres\n", total);
 }
 
 Produit* chargerCatalogue(Produit* liste) {
@@ -152,7 +152,7 @@ Produit* chargerCatalogue(Produit* liste) {
     fread(&total, sizeof(int), 1, f);
     fread(liste, sizeof(Produit), total, f);
     fclose(f);
-    printf("Catalogue charge de %d produits\n", total);
+    printf("Catalogue charge de %d du produits\n", total);
     return liste;
 }
 
