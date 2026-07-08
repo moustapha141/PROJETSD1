@@ -67,21 +67,27 @@
     tabsize=4,
     frame=single,
     rulecolor=\color{bleufonce},
-    language=C
+    language=C,
+    literate=
+      {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {ë}{{\"e}}1
+      {à}{{\`a}}1 {â}{{\^a}}1 {ù}{{\`u}}1 {û}{{\^u}}1
+      {ô}{{\^o}}1 {î}{{\^i}}1 {ï}{{\"i}}1 {ç}{{\c c}}1
+      {œ}{{\oe}}1 {É}{{\'E}}1 {È}{{\`E}}1 {À}{{\`A}}1
+      {Ç}{{\c C}}1 {°}{{\textdegree}}1
 }
 \lstset{style=styleC}
 
 % ============================================================
 % EN-TÊTES / PIEDS DE PAGE
 % ============================================================
-\pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\color{bleufonce}\textit{LMI 2 — Algorithmique \& Structures de Données}}
 \fancyhead[R]{\small\color{bleufonce}\textit{UIDT Thiès — 2025/2026}}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
-\headrulecolor{bleufonce}
+\renewcommand{\headrule}{{\color{bleufonce}\hrule width\headwidth height\headrulewidth}}
+\renewcommand{\footrule}{{\color{bleufonce}\hrule width\headwidth height\footrulewidth}}
 
 % ============================================================
 % STYLE DES TITRES
@@ -131,12 +137,14 @@
 %   DOCUMENT
 % ============================================================
 \begin{document}
+\pagestyle{fancy}
 \pagenumbering{roman}
 
 % ============================================================
 % PAGE DE TITRE
 % ============================================================
 \begin{titlepage}
+\thispagestyle{empty}
 \centering
 \vspace*{0.5cm}
 
@@ -169,6 +177,8 @@ Système de Gestion de Commerce en Ligne}\\[0.4cm]
 
 \begin{center}
 \begin{tabular}{ll}
+\textbf{\color{bleufonce}Présenté par :}       & Mouhamadou Moustapha Ba \\
+                                                & Ibrahima Ba \\[4pt]
 \textbf{\color{bleufonce}Filière :}            & Licence 2 Mathématiques--Informatique (LMI 2) \\[4pt]
 \textbf{\color{bleufonce}Année universitaire :}& 2025--2026 \\[4pt]
 \textbf{\color{bleufonce}Enseignant responsable :} & Dr Abdoulaye DIALLO \\[4pt]
@@ -929,7 +939,7 @@ $n$ & Statique (ns) & Dynamique (ns) & Écart \\
     legend pos=north east,
     symbolic x coords={uniforme, gaussienne, triée, inversée},
     xtick=data,
-    grid=y,
+    grid=major,
     enlarge x limits=0.2,
 ]
 \addplot[fill=bleufonce!80] coordinates {

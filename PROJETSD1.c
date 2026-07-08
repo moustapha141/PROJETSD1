@@ -1185,19 +1185,19 @@ int main() {
     do {
         printf("  BIENVENUE SUR MON ESPACE-COMMERCE EN LIGNE:\n");
         printf("    GESTION DU CATALOGUE\n");
-        printf("1.  Gestion du catalogue (Ajouter/Afficher produits)\n");
-        printf("7.  Trier et afficher - Tableau Statique (par prix)\n");
-        printf("8.  Trier et afficher - Tableau Dynamique (par stock)\n");
-        printf("9.  Gestion Liste Doublement Chainee\n");
-        printf("10. Mise a jour d'un produit\n");
+        printf("case1.  Gestion du catalogue (Ajouter/Afficher produits)\n");
+        printf("case7.  Trier et afficher - Tableau Statique (par prix)\n");
+        printf("case8.  Trier et afficher - Tableau Dynamique (par stock)\n");
+        printf("case9.  Gestion Liste Doublement Chainee\n");
+        printf("case10. Mise a jour d'un produit\n");
         printf("   GESTION du CLIENTS et COMMANDES\n");
-        printf("2.  Creer un compte client\n");
-        printf("3.  Ajouter au panier et Voir le catalogue\n");
-        printf("4.  Voir mon panier et Passer commande\n");
-        printf("5.  Voir toutes les commandes passees\n");
+        printf("case2.  Creer un compte client\n");
+        printf("case3.  Ajouter au panier et Voir le catalogue\n");
+        printf("case4.  Voir mon panier et Passer commande\n");
+        printf("case5.  Voir toutes les commandes passees\n");
         printf("   GESTION STATISTIQUES \n");
-        printf("6.  Agregations statistiques sur les prix\n");
-        printf("0.  Quitter le programme\n");
+        printf("case6.  Agregations statistiques sur les prix\n");
+        printf("case0.  Quitter le programme\n");
         printf("Votre choix : ");
         
         if (scanf("%d", &choix) != 1) {
@@ -1211,8 +1211,8 @@ int main() {
             case 1:
                 printf("Gestion du catalogue\n");
                 int sous_choix;
-                printf("1. Ajouter un produit\n");
-                printf("2. Afficher le catalogue\n");
+                printf("case1. Ajouter un produit\n");
+                printf("case2. Afficher le catalogue\n");
                 printf("Votre choix : ");
                 scanf("%d", &sous_choix);
                 if (sous_choix == 1) {
@@ -1229,8 +1229,8 @@ int main() {
             case 2:
                 printf("Création de compte du client\n");
                 int sous_choix_client;
-                printf("1. Enregistrer un nouveau client\n");
-                printf("2. Afficher la liste des clients\n");
+                printf("case1. Enregistrer un nouveau client\n");
+                printf("case2. Afficher la liste des clients\n");
                 printf(" Votre choix : ");
                 scanf("%d", &sous_choix_client);
                 if (sous_choix_client == 1) {
@@ -1244,8 +1244,8 @@ int main() {
             case 3:
                 printf("Ajouter au panier\n");
                 int sous_choix_achat;
-                printf("1. Ajouter un produit au panier\n");
-                printf("2. Voir le catalogue complet\n");
+                printf("case1. Ajouter un produit au panier\n");
+                printf("case2. Voir le catalogue complet\n");
                 
                 printf("Votre choix : ");
                 scanf("%d", &sous_choix_achat);
@@ -1260,8 +1260,8 @@ int main() {
             case 4:
                {
 			    int sous_choix_commande;
-                printf("1. Visualiser mon panier\n");
-                printf("2. Passer une commande\n");
+                printf("case1. Visualiser mon panier\n");
+                printf("case2. Passer une commande\n");
                 printf("Votre choix : ");
                 scanf("%d", &sous_choix_commande);
 
@@ -1288,8 +1288,8 @@ int main() {
             case 6: 
                 printf("Agregations statistiques sur les prix\n");
                 int sous_choix_stats;
-                printf("1. Stats tableau statique\n");
-                printf("2. Stats tableau dynamique\n");
+                printf("case1. Stats tableau statique\n");
+                printf("case2. Stats tableau dynamique\n");
                 printf("Votre choix : ");
                 scanf("%d", &sous_choix_stats);
                 if (sous_choix_stats == 1) {
@@ -1314,14 +1314,14 @@ int main() {
             case 9: {
                 int sous_choix_liste;
                 printf("=== LISTE DOUBLEMENT CHAINEE ===\n");
-                printf("1. Ajouter un produit (en tete)\n");
-                printf("2. Ajouter un produit (en queue)\n");
-                printf("3. Afficher la liste\n");
-                printf("4. Rechercher par ID\n");
-                printf("5. Recherche multicritere de categorie et de prix\n");
-                printf("6. Supprimer un produit par ID\n");
-                printf("7. Trier la liste par prix\n");
-                printf("8. Statistiques de la liste\n");
+                printf("case1. Ajouter un produit (en tete)\n");
+                printf("case2. Ajouter un produit (en queue)\n");
+                printf("case3. Afficher la liste\n");
+                printf("case4. Rechercher par ID\n");
+                printf("case5. Recherche multicritere de categorie et de prix\n");
+                printf("case6. Supprimer un produit par ID\n");
+                printf("case7. Trier la liste par prix\n");
+                printf("case8. Statistiques de la liste\n");
                 printf("Votre choix : ");
                 scanf("%d", &sous_choix_liste);
                 switch (sous_choix_liste) {
@@ -1388,9 +1388,9 @@ int main() {
             case 10: {
                 int sous_choix_maj;
                 printf("=== MISE A JOUR D'UN PRODUIT ===\n");
-                printf("1. Tableau Statique\n");
-                printf("2. Tableau Dynamique\n");
-                printf("3. Liste Chainee\n");
+                printf("case1. Tableau Statique\n");
+                printf("case2. Tableau Dynamique\n");
+                printf("case3. Liste Chainee\n");
                 printf("Votre choix : ");
                 scanf("%d", &sous_choix_maj);
                 if (sous_choix_maj == 1) mettreAJourProduitStatique(catalogue);
