@@ -913,7 +913,7 @@ Noeud* chargerCatalogueListe(const char* nom_fichier) {
         tete = insererTeteListe(tete, p);
     }
     fclose(f);
-    printf("Liste chargee depuis le fichier de %d du produits\n", total);
+    printf("Liste chargee depuis le fichier de %s du produits\n", nom_fichier);
     return tete;
 }
 // AGREGATIONS STATISTIQUES - LISTE CHAINEE
