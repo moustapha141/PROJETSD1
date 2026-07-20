@@ -128,7 +128,7 @@ void afficherCatalogue(Produit* liste) {
 
 void sauvegarderCatalogue(Produit* liste) {
     FILE* f = fopen("produits.dat", "wb");
-    if (!f) {
+    if (f == NULL) {
         perror("Erreur de sauvegarde");
         return;
     }
@@ -144,7 +144,7 @@ void sauvegarderCatalogue(Produit* liste) {
 
 Produit* chargerCatalogue(Produit* liste) {
     FILE* f = fopen("produits.dat", "rb");
-    if (!f) {
+    if (f == NULL) {
         /* printf("Aucun fichier 'produits.dat' trouve. Catalogue vide.\n")*/;
         return liste;
     }
@@ -206,7 +206,7 @@ void afficherListeClients(Client* liste_clients) {
 }
 void sauvegarderClients(Client* liste_clients) {
     FILE* f = fopen("clients.dat", "wb");
-    if (!f) {
+    if (f == NULL) {
         perror("Erreur de sauvegarde des clients");
         return;
     }
@@ -222,7 +222,7 @@ void sauvegarderClients(Client* liste_clients) {
 
 Client* chargerClients(Client* liste_clients) {
     FILE* f = fopen("clients.dat", "rb");
-    if (!f) {
+    if (f == NULL) {
         /*printf("Aucun fichier 'clients.dat' trouve. Liste clients vide.\n")*/;
         return liste_clients;
     }
@@ -258,14 +258,14 @@ void ajouterAuPanier(Client* liste_clients, Produit* catalogue) {
     printf("ID du client qui fait ses achats : ");
     scanf("%d", &id_c);
     Client* c = rechercherClient(liste_clients, id_c);
-    if (!c) {
+    if (c == NULL) {
         printf("Client introuvable.\n");
         return;
     }
     printf("ID du produit a ajouter : ");
     scanf("%d", &id_p);
     Produit* p = rechercherProduit(catalogue, id_p);
-    if (!p || p->stock <= 0) {
+    if (p == NULL || p->stock <= 0) {
         printf("Produit indisponible ou stock épuisé.\n");
         return;
     }
@@ -274,20 +274,23 @@ void ajouterAuPanier(Client* liste_clients, Produit* catalogue) {
 }
 
 void afficherPanier(Client* client) {
-    if (!client) return;
+    if (client == NULL) return;
     printf("Panier de %s consultable lors du passage de commande final.\n", client->nom);
 }
 
 void noterProduit(Produit* catalogue) {
     int id_p;
+    float note;
     printf("ID du produit a noter : ");
     scanf("%d", &id_p);
     Produit* p = rechercherProduit(catalogue, id_p);
-    if (p) {
-        printf("Le produit '%s' a ete selectionne pour evaluation.\n", p->nom);
-    } else {
-        printf("Produit introuvable.\n");
-    }
+    if (p == NULL) {
+         printf("Produit introuvable.\n");
+         return;
+    } 
+     printf("Entrez votre note pour le produit '%s' : ", p->nom); 
+     scanf("%f", &note);
+     printf("Note enregistree avec succes pour le produit '%s'.\n", p->nom);
 }
 
 //  FONCTIONS DES COMMANDES
@@ -305,14 +308,14 @@ Commande* passerCommande(Commande* liste_commandes, Client* liste_clients, Produ
     printf("ID Client de la commande : ");
     scanf("%d", &id_c);
     Client* clt = rechercherClient(liste_clients, id_c);
-    if (!clt) {
+    if (clt == NULL) {
         printf("Impossible de passer la commande : client non inscrit.\n");
         return NULL;
     }
     printf("ID du produit a acheter : ");
     scanf("%d", &id_p);
     Produit* prod = rechercherProduit(catalogue, id_p);
-    if (!prod) {
+    if (prod == NULL) {
         printf("Produit introuvable.\n");
         return NULL;
     }
@@ -333,7 +336,7 @@ Commande* passerCommande(Commande* liste_commandes, Client* liste_clients, Produ
 }
 void sauvegarderCommandes(Commande* liste_commandes) {
     FILE* f = fopen("commandes.dat", "wb");
-    if (!f) {
+    if (f == NULL) {
         perror("Erreur de sauvegarde des commandes");
         return;
     }
@@ -359,7 +362,7 @@ void sauvegarderCommandes(Commande* liste_commandes) {
 
 void chargerCommandes(Commande* liste_commandes, Client* liste_clients, Produit* catalogue) {
     FILE* f = fopen("commandes.dat", "rb");
-    if (!f) {
+    if (f == NULL) {
        /* printf("Aucun fichier 'commandes.dat' trouve. Liste commandes vide.\n")*/;
         return;
     }
@@ -383,7 +386,7 @@ void chargerCommandes(Commande* liste_commandes, Client* liste_clients, Produit*
     printf("Commandes charges : %d\n", total);
 }
 void afficherToutesLesCommandes(Commande* liste_commandes) {
-    if (!liste_commandes) {
+    if ( liste_commandes == NULL) {
         printf("Aucune commande disponible.\n");
         return;
     }
@@ -401,14 +404,14 @@ void afficherToutesLesCommandes(Commande* liste_commandes) {
         float total_commande = 0.0f;
         for (int j = 0; j < liste_commandes[i].nombreProduits; j++) {
             Produit* produit = liste_commandes[i].produits[j];
-            if (!produit) continue;
+            if (produit == NULL) continue;
             printf("  Article %d : %s | Prix: %.2f FCF | Stock restant: %d\n", j + 1, produit->nom, produit->prix, produit->stock);
             total_commande += produit->prix;
         }
         printf("  Nombre de produits : %d | Total commande : %.2f FCF\n", liste_commandes[i].nombreProduits, total_commande);
     }
 
-    if (!trouve) {
+    if (trouve == 0) {
         printf("Aucune commande enregistreee pour le moment.\n");
     }
 }
@@ -419,13 +422,13 @@ void libererTout(Produit* cat, Client* clt, Commande* cmd) {
     printf("Nettoyage des tables statiques termine.\n");
 }
 // AGREGATIONS STATISTIQUES TABLEAU STATISTIQUE
-static void echangerFloat(float* a, float* b) {
+ void echangerFloat(float* a, float* b) {
     float tmp = *a;
     *a = *b;
     *b = tmp;
 }
 
-static int partition(float* copie, int gauche, int droite) {
+ int partition(float* copie, int gauche, int droite) {
     float pivot = copie[droite];
     int i = gauche - 1;
     for (int j = gauche; j < droite; j++) {
@@ -438,7 +441,7 @@ static int partition(float* copie, int gauche, int droite) {
     return i + 1;
 }
 
-static float quickselect(float* copie, int gauche, int droite, int k) {
+ float quickselect(float* copie, int gauche, int droite, int k) {
     if (gauche == droite) {
         return copie[gauche];
     }
@@ -452,7 +455,7 @@ static float quickselect(float* copie, int gauche, int droite, int k) {
     }
 }
 
-static int compterProduitsStatique(Produit* liste) {
+ int compterProduitsStatique(Produit* liste) {
     int n = 0;
     while (n < MAX_STATIQUE && liste[n].idProduit != 0) {
         n++;
@@ -566,7 +569,7 @@ int taille_dyn = 0;
 
 Produit** initialiserTableauDynamique() {
     Produit** tab = (Produit**)malloc(capacite_dyn * sizeof(Produit*));
-    if (!tab) {
+    if (tab == NULL) {
         perror("Erreur d'allocation initiale du tableau dynamique");
         exit(EXIT_FAILURE);
     }
@@ -578,7 +581,7 @@ Produit** insererProduitDyn(Produit** tab, Produit p) {
     if (taille_dyn >= capacite_dyn) {
         capacite_dyn *= 2;
         Produit** nouveau_tab = (Produit**)realloc(tab, capacite_dyn * sizeof(Produit*));
-        if (!nouveau_tab) {
+        if (nouveau_tab == NULL) {
             perror("Erreur de realloc lors de l'agrandissement du tableau");
             return tab;
         }
@@ -587,7 +590,7 @@ Produit** insererProduitDyn(Produit** tab, Produit p) {
     }
 
     tab[taille_dyn] = (Produit*)malloc(sizeof(Produit));
-    if (!tab[taille_dyn]) {
+    if (tab[taille_dyn] == NULL) {
         perror("Erreur allocation memoire pour la structure produit");
         return tab;
     }
@@ -647,11 +650,11 @@ void rechercherMulticritereDyn(Produit** tab, const char* categorie, float prix_
             trouve = 1;
         }
     }
-    if (!trouve) printf("Aucun produit ne correspond aux critères.\n");
+    if (trouve == 0) printf("Aucun produit ne correspond aux critères.\n");
 }
 void sauvegarderTableauDynamique(Produit** tab) {
     FILE* f = fopen("dynamique.dat", "wb");
-    if (!f) { perror("Erreur de sauvegarde"); return; }
+    if (f == NULL) { perror("Erreur de sauvegarde"); return; }
     fwrite(&taille_dyn, sizeof(int), 1, f);
     for (int i = 0; i < taille_dyn; i++) {
         fwrite(tab[i], sizeof(Produit), 1, f);
@@ -662,7 +665,7 @@ void sauvegarderTableauDynamique(Produit** tab) {
 
 Produit** chargerTableauDynamique(Produit** tab) {
     FILE* f = fopen("dynamique.dat", "rb");
-    if (!f) 
+    if (f == NULL) 
     { /*printf("Aucun fichier 'dynamique.dat' trouve. Tableau dynamique vide.\n"); */
         return tab; 
     };
@@ -787,7 +790,7 @@ void libererListe(Noeud* tete);
 //  INSERTION ET SUPPRESSION
 Noeud* insererTeteListe(Noeud* tete, Produit p) {
     Noeud* nouveau = (Noeud*)malloc(sizeof(Noeud));
-    if (!nouveau) {
+    if (nouveau == NULL) {
         perror("Erreur allocation maillon");
         return tete;
     }
@@ -802,7 +805,7 @@ Noeud* insererTeteListe(Noeud* tete, Produit p) {
 }
 Noeud* insererQueueListe(Noeud* tete, Produit p) {
     Noeud* nouveau = (Noeud*)malloc(sizeof(Noeud));
-    if (!nouveau) { perror("Erreur allocation maillon queue"); return tete; }
+    if (nouveau == NULL) { perror("Erreur allocation maillon queue"); return tete; }
     nouveau->data = p;
     nouveau->suiv = NULL;
 
@@ -829,9 +832,8 @@ Noeud* supprimerProduitListe(Noeud* tete, int id_produit) {
     }
     if (courant->prec != NULL) {
         courant->prec->suiv = courant->suiv;
-    } else {
+    } 
         tete = courant->suiv; 
-    }
 
     if (courant->suiv != NULL) {
         courant->suiv->prec = courant->prec;
@@ -875,11 +877,11 @@ void rechercherMulticritereListe(Noeud* tete, const char* categorie, float prix_
         }
         courant = courant->suiv;
     }
-    if (!trouve) printf("Aucun produit ne correspond à ces critères.\n");
+    if (trouve == 0) printf("Aucun produit ne correspond à ces critères.\n");
 }
 void sauvegarderCatalogueListe(const char* nom_fichier, Noeud* tete) {
     FILE* f = fopen(nom_fichier, "wb");
-    if (!f) return;
+    if (f == NULL) return;
     int total = 0;
     Noeud* courant = tete;
     while (courant != NULL) {
@@ -898,7 +900,7 @@ void sauvegarderCatalogueListe(const char* nom_fichier, Noeud* tete) {
 
 Noeud* chargerCatalogueListe(const char* nom_fichier) {
     FILE* f = fopen(nom_fichier, "rb");
-    if (!f) return NULL;
+    if (f == NULL) return NULL;
 
     int total = 0;
     if (fread(&total, sizeof(int), 1, f) != 1) {
@@ -918,13 +920,13 @@ Noeud* chargerCatalogueListe(const char* nom_fichier) {
 }
 // AGREGATIONS STATISTIQUES - LISTE CHAINEE
 void afficherStatsListe(Noeud* tete) {
-    if (!tete) { printf("Liste chainee vide.\n"); return; }
+    if (tete == NULL) { printf("Liste chainee vide.\n"); return; }
     int n = 0;
     float somme = 0, min, max, somme_carres = 0;
     min = max = tete->data.prix;
     int cap = 1000;
     float* copie = (float*)malloc(cap * sizeof(float));
-    if (!copie) { perror("Erreur allocation stats liste"); return; }
+    if (copie == NULL) { perror("Erreur allocation stats liste"); return; }
 
     Noeud* c = tete;
     while (c) {
@@ -970,8 +972,7 @@ void mettreAJourProduitListe(Noeud* tete);
 void afficherStatsListe(Noeud* tete);
 Noeud* insererQueueListe(Noeud* tete, Produit p);
 
-// 1. TRI PAR INSERTION - TABLEAU STATIQUE
-// Critère : Prix (Ordre Croissant) 
+//  TRI PAR INSERTION - TABLEAU STATIQUE Prix (Ordre Croissant) 
 void triInsertionStatique(Produit* tab, int taille) {
     if (taille <= 1) return;
 
@@ -987,8 +988,7 @@ void triInsertionStatique(Produit* tab, int taille) {
     printf("Tableau statique trie par prix croissant\n");
 }
 
-// 2. TRI PAR INSERTION - TABLEAU DYNAMIQUE DE POINTEURS
-// Critère : Stock (Ordre Décroissant)
+// TRI PAR INSERTION - TABLEAU DYNAMIQUE DE POINTEURS Stock (Ordre Décroissant)
 void triInsertionDynamique(Produit** tab) {
     if (taille_dyn <= 1) return;
 
@@ -1004,10 +1004,9 @@ void triInsertionDynamique(Produit** tab) {
     printf("Tableau dynamique trie par stock decroissant\n");
 }
 
-// TRI PAR INSERTION - LISTE DOUBLEMENT CHAINEE
-// Critere : prix croissant
+// TRI PAR INSERTION - LISTE DOUBLEMENT CHAINEE prix croissant
 void triInsertionListe(Noeud** tete) {
-    if (!tete || !(*tete) || !(*tete)->suiv) return;
+    if (tete == NULL || (*tete) == NULL || (*tete)->suiv == NULL) return;
     Noeud* trie = (*tete);
     Noeud* courant = (*tete)->suiv;
     trie->suiv = NULL;
@@ -1039,7 +1038,7 @@ void mettreAJourProduitStatique(Produit* liste) {
     int id; printf("ID du produit a modifier : "); 
 	scanf("%d", &id);
     Produit* p = rechercherProduit(liste, id);
-    if (!p) { printf("Produit introuvable.\n"); return; }
+    if (p == NULL) { printf("Produit introuvable.\n"); return; }
     int champ;
     printf("Que modifier ? 1.Nom  2.Categorie  3.Prix  4.Stock\nChoix : ");
     scanf("%d", &champ); getchar();
@@ -1064,7 +1063,7 @@ void mettreAJourProduitDyn(Produit** tab) {
     int id; printf("ID du produit a modifier : "); 
 	scanf("%d", &id);
     Produit* p = rechercherProduitDyn(tab, id);
-    if (!p) { 
+    if (p == NULL) { 
 	printf("Produit introuvable.\n"); return; }
     int champ;
     printf("Que modifier ? 1.Nom  2.Categorie  3.Prix  4.Stock\nChoix : ");
@@ -1091,7 +1090,7 @@ void mettreAJourProduitListe(Noeud* tete) {
 	printf("ID du produit a modifier : "); 
 	scanf("%d", &id);
     Produit* p = rechercherProduitListe(tete, id);
-    if (!p) { 
+    if (p == NULL) { 
 	printf("Produit introuvable.\n"); return; }
     int champ;
     printf("Que modifier ? 1.Nom  2.Categorie  3.Prix  4.Stock\nChoix : ");
@@ -1114,18 +1113,17 @@ void mettreAJourProduitListe(Noeud* tete) {
 
 int main() {
 
-
-					    printf("\n");
+printf("*************************************************************************************************************************\n");
 					    printf("%58s\n", "Universite Iba Der Thiam de Thies");
 					    printf("\n");
-					    printf("%53s\n", "UFR Sciences et Technologies");
-					    printf("%64s\n", "Departement de Mathematiques et Informatique");
+					    printf("%55s\n", "UFR Sciences et Technologies");
+					    printf("%69s\n", "Departement de Mathematiques et Informatique");
 					    printf("\n");
-					    printf("%53s\n", "__________________________________");
+					    printf("%76s\n", "____________________________________________________________"); 
 					    printf("\n\n\n");
 					
-					    printf("%53s\n","RAPPORT DE PROJET");
-					    printf("%57s\n",     "Algorithmique et Structures de Donnees");
+					    printf("%48s\n","RAPPORT DE PROJET");
+					    printf("%57s\n", "Algorithmique et Structures de Donnees");
 					    printf("\n\n");
 					
 					   
@@ -1141,7 +1139,7 @@ int main() {
 					    printf("         +-------------------------------------------------------------+\n");
 					    printf("\n\n\n");
 					
-					   
+					    printf("         Presente par :        Mouhamadou Moustapha BA et Ibrahima BA\n");
 					    printf("         Filiere :             Licence 2 Mathematiques-Informatique (LMI 2)\n");
 					    printf("         Annee universitaire : 2025-2026\n");
 					    printf("         Enseignant resp. :    Dr Abdoulaye DIALLO\n");
@@ -1152,11 +1150,11 @@ int main() {
 					   
 					    printf("%43s\n", "Juin 2026");
 					    printf("\n");
-					    printf("%53s\n", "__________________________________");
-					    printf("\n");
+printf("*****************************************************************************************************************************\n");
+                        printf("\n");
 
   
-
+printf("*****************************************************************************************************************************\n");
     memset(table_produits, 0, sizeof(table_produits));
     memset(table_clients, 0, sizeof(table_clients));
     memset(table_commandes, 0, sizeof(table_commandes));
@@ -1168,17 +1166,9 @@ int main() {
     Produit** catalogue_dyn = initialiserTableauDynamique();
     Noeud* ma_liste = NULL;
 
-    ma_liste = chargerCatalogueListe("liste.dat");
-    if (!ma_liste) 
-	printf("Aucune liste chainee trouvee. Liste vide.\n");
-
-    int id_commande_auto = 1;
+    int id_commande_auto = 0;
     int choix;
 
-    chargerCatalogue(catalogue);
-    chargerClients(liste_clients);
-    chargerCommandes(liste_commandes, liste_clients, catalogue);
-    catalogue_dyn = chargerTableauDynamique(catalogue_dyn);
     printf("\n\n\n");
     
 
@@ -1419,6 +1409,8 @@ int main() {
     } while (choix != 0);
 
     return 0;
+printf("*************************************************************************************************************************\n");
 }
 
                
+
